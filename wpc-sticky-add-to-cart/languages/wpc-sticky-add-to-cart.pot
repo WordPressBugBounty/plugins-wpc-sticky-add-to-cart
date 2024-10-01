@@ -1,0 +1,250 @@
+# Copyright (C) 2024 WPClever
+# This file is distributed under the same license as the WPC Sticky Add To Cart for WooCommerce plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: WPC Sticky Add To Cart for WooCommerce 2.0.8\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wpc-sticky-add-to-cart\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-09-13T07:28:47+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.5.0\n"
+"X-Domain: wpc-sticky-add-to-cart\n"
+
+#. Plugin Name of the plugin
+msgid "WPC Sticky Add To Cart for WooCommerce"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://wpclever.net/"
+msgstr ""
+
+#. Description of the plugin
+msgid "WPC Sticky Add To Cart brings about a nicer, customer-friendly sticky add-to-cart bar for your site."
+msgstr ""
+
+#. Author of the plugin
+msgid "WPClever"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://wpclever.net"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:121
+#: wpc-sticky-add-to-cart.php:132
+msgid "WPC Sticky Add To Cart"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:121
+msgid "Sticky Add To Cart"
+msgstr ""
+
+#. translators: stars
+#: wpc-sticky-add-to-cart.php:135
+msgid "Thank you for using our plugin! If you are satisfied, please reward it a full five-star %s rating."
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:137
+msgid "Reviews"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:138
+msgid "Changelog"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:139
+msgid "Discussion"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:144
+msgid "Settings updated."
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:150
+#: wpc-sticky-add-to-cart.php:378
+msgid "Settings"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:153
+msgid "Localization"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:156
+msgid "Essential Kit"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:179
+#: wpc-sticky-add-to-cart.php:310
+msgid "General"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:183
+msgid "Position"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:186
+msgid "Top"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:187
+msgid "Bottom"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:192
+msgid "Offset top"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:197
+msgid "Distance from the top to start showing the sticky bar."
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:201
+msgid "Offset bottom"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:206
+msgid "Distance from the bottom to hiding the sticky bar."
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:210
+msgid "Show price"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:213
+msgid "Separately (default)"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:214
+msgid "On add-to-cart button"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:215
+#: wpc-sticky-add-to-cart.php:224
+#: wpc-sticky-add-to-cart.php:233
+#: wpc-sticky-add-to-cart.php:243
+#: wpc-sticky-add-to-cart.php:252
+#: wpc-sticky-add-to-cart.php:261
+#: wpc-sticky-add-to-cart.php:270
+#: wpc-sticky-add-to-cart.php:279
+msgid "No"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:220
+msgid "Show quantity"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:223
+#: wpc-sticky-add-to-cart.php:232
+#: wpc-sticky-add-to-cart.php:242
+#: wpc-sticky-add-to-cart.php:251
+#: wpc-sticky-add-to-cart.php:260
+#: wpc-sticky-add-to-cart.php:269
+#: wpc-sticky-add-to-cart.php:278
+msgid "Yes"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:229
+msgid "Variations form"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:235
+msgid "Use variations form for variable products."
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:239
+msgid "Show QUICK VIEW button"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:248
+msgid "Show COMPARE button"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:257
+msgid "Show WISHLIST button"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:266
+msgid "Show BUY NOW button"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:275
+msgid "Disable for unpurchasable products"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:284
+msgid "Disable for product types"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:312
+msgid "Leave blank to use the default text and its equivalent translation in multiple languages."
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:316
+#: wpc-sticky-add-to-cart.php:319
+#: wpc-sticky-add-to-cart.php:565
+msgid "Add to cart"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:394
+msgid "Community support"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:609
+msgid "Before container"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:610
+msgid "After container"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:611
+msgid "Before product"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:612
+msgid "After product"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:613
+msgid "Before product info"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:614
+msgid "After product info"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:615
+msgid "Before product image"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:616
+msgid "After product image"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:617
+msgid "Before product data"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:618
+msgid "After product data"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:619
+msgid "Before product name"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:620
+msgid "After product name"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:621
+msgid "Before product price"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:622
+msgid "After product price"
+msgstr ""
