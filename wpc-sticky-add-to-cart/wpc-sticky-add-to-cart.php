@@ -3,24 +3,27 @@
 Plugin Name: WPC Sticky Add To Cart for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Sticky Add To Cart brings about a nicer, customer-friendly sticky add-to-cart bar for your site.
-Version: 2.0.8
+Version: 2.0.9
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-sticky-add-to-cart
 Domain Path: /languages/
 Requires Plugins: woocommerce
 Requires at least: 4.0
-Tested up to: 6.6
+Tested up to: 6.7
 WC requires at least: 3.0
-WC tested up to: 9.3
+WC tested up to: 9.4
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WPCSB_VERSION' ) && define( 'WPCSB_VERSION', '2.0.8' );
+! defined( 'WPCSB_VERSION' ) && define( 'WPCSB_VERSION', '2.0.9' );
 ! defined( 'WPCSB_LITE' ) && define( 'WPCSB_LITE', __FILE__ );
 ! defined( 'WPCSB_FILE' ) && define( 'WPCSB_FILE', __FILE__ );
 ! defined( 'WPCSB_URI' ) && define( 'WPCSB_URI', plugin_dir_url( __FILE__ ) );
+! defined( 'WPCSB_DIR' ) && define( 'WPCSB_DIR', plugin_dir_path( __FILE__ ) );
 ! defined( 'WPCSB_REVIEWS' ) && define( 'WPCSB_REVIEWS', 'https://wordpress.org/support/plugin/wpc-sticky-add-to-cart/reviews/?filter=5' );
 ! defined( 'WPCSB_CHANGELOG' ) && define( 'WPCSB_CHANGELOG', 'https://wordpress.org/plugins/wpc-sticky-add-to-cart/#developers' );
 ! defined( 'WPCSB_DISCUSSION' ) && define( 'WPCSB_DISCUSSION', 'https://wordpress.org/support/plugin/wpc-sticky-add-to-cart' );
@@ -34,9 +37,6 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
 	add_action( 'plugins_loaded', 'wpcsb_init', 11 );
 
 	function wpcsb_init() {
-		// load text-domain
-		load_plugin_textdomain( 'wpc-sticky-add-to-cart', false, basename( __DIR__ ) . '/languages/' );
-
 		if ( ! function_exists( 'WC' ) || ! version_compare( WC()->version, '3.0', '>=' ) ) {
 			add_action( 'admin_notices', 'wpcsb_notice_wc' );
 
@@ -61,6 +61,9 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
 					self::$settings     = (array) get_option( 'wpcsb_settings', [] );
 					self::$localization = (array) get_option( 'wpcsb_localization', [] );
 
+					// init
+					add_action( 'init', [ $this, 'init' ] );
+
 					// settings
 					add_action( 'admin_init', [ $this, 'register_settings' ] );
 					add_action( 'admin_menu', [ $this, 'admin_menu' ] );
@@ -81,6 +84,11 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
 
 					// WPC Smart Messages
 					add_filter( 'wpcsm_locations', [ $this, 'wpcsm_locations' ] );
+				}
+
+				public function init() {
+					// load text-domain
+					load_plugin_textdomain( 'wpc-sticky-add-to-cart', false, basename( WPCSB_DIR ) . '/languages/' );
 				}
 
 				public static function get_settings() {
