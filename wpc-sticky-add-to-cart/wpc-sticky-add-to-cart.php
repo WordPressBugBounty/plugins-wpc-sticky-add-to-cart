@@ -3,7 +3,7 @@
 Plugin Name: WPC Sticky Add To Cart for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Sticky Add To Cart brings about a nicer, customer-friendly sticky add-to-cart bar for your site.
-Version: 2.0.9
+Version: 2.1.0
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-sticky-add-to-cart
@@ -12,14 +12,14 @@ Requires Plugins: woocommerce
 Requires at least: 4.0
 Tested up to: 6.7
 WC requires at least: 3.0
-WC tested up to: 9.4
+WC tested up to: 9.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WPCSB_VERSION' ) && define( 'WPCSB_VERSION', '2.0.9' );
+! defined( 'WPCSB_VERSION' ) && define( 'WPCSB_VERSION', '2.1.0' );
 ! defined( 'WPCSB_LITE' ) && define( 'WPCSB_LITE', __FILE__ );
 ! defined( 'WPCSB_FILE' ) && define( 'WPCSB_FILE', __FILE__ );
 ! defined( 'WPCSB_URI' ) && define( 'WPCSB_URI', plugin_dir_url( __FILE__ ) );
@@ -142,9 +142,12 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
                             <p>
 								<?php printf( /* translators: stars */ esc_html__( 'Thank you for using our plugin! If you are satisfied, please reward it a full five-star %s rating.', 'wpc-sticky-add-to-cart' ), '<span style="color:#ffb900">&#9733;&#9733;&#9733;&#9733;&#9733;</span>' ); ?>
                                 <br/>
-                                <a href="<?php echo esc_url( WPCSB_REVIEWS ); ?>" target="_blank"><?php esc_html_e( 'Reviews', 'wpc-sticky-add-to-cart' ); ?></a> |
-                                <a href="<?php echo esc_url( WPCSB_CHANGELOG ); ?>" target="_blank"><?php esc_html_e( 'Changelog', 'wpc-sticky-add-to-cart' ); ?></a> |
-                                <a href="<?php echo esc_url( WPCSB_DISCUSSION ); ?>" target="_blank"><?php esc_html_e( 'Discussion', 'wpc-sticky-add-to-cart' ); ?></a>
+                                <a href="<?php echo esc_url( WPCSB_REVIEWS ); ?>"
+                                   target="_blank"><?php esc_html_e( 'Reviews', 'wpc-sticky-add-to-cart' ); ?></a> |
+                                <a href="<?php echo esc_url( WPCSB_CHANGELOG ); ?>"
+                                   target="_blank"><?php esc_html_e( 'Changelog', 'wpc-sticky-add-to-cart' ); ?></a> |
+                                <a href="<?php echo esc_url( WPCSB_DISCUSSION ); ?>"
+                                   target="_blank"><?php esc_html_e( 'Discussion', 'wpc-sticky-add-to-cart' ); ?></a>
                             </p>
                         </div>
 						<?php if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] ) { ?>
@@ -154,13 +157,16 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
 						<?php } ?>
                         <div class="wpclever_settings_page_nav">
                             <h2 class="nav-tab-wrapper">
-                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-wpcsb&tab=settings' ) ); ?>" class="<?php echo esc_attr( $active_tab === 'settings' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>">
+                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-wpcsb&tab=settings' ) ); ?>"
+                                   class="<?php echo esc_attr( $active_tab === 'settings' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>">
 									<?php esc_html_e( 'Settings', 'wpc-sticky-add-to-cart' ); ?>
                                 </a>
-                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-wpcsb&tab=localization' ) ); ?>" class="<?php echo esc_attr( $active_tab === 'localization' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>">
+                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-wpcsb&tab=localization' ) ); ?>"
+                                   class="<?php echo esc_attr( $active_tab === 'localization' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>">
 									<?php esc_html_e( 'Localization', 'wpc-sticky-add-to-cart' ); ?>
                                 </a>
-                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-kit' ) ); ?>" class="nav-tab">
+                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-kit' ) ); ?>"
+                                   class="nav-tab">
 									<?php esc_html_e( 'Essential Kit', 'wpc-sticky-add-to-cart' ); ?>
                                 </a>
                             </h2>
@@ -200,7 +206,9 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
                                             <th scope="row"><?php esc_html_e( 'Offset top', 'wpc-sticky-add-to-cart' ); ?></th>
                                             <td>
                                                 <label>
-                                                    <input type="number" min="0" step="1" class="small-text" name="wpcsb_settings[offset_top]" value="<?php echo esc_attr( $offset_top ); ?>"/>
+                                                    <input type="number" min="0" step="1" class="small-text"
+                                                           name="wpcsb_settings[offset_top]"
+                                                           value="<?php echo esc_attr( $offset_top ); ?>"/>
                                                 </label> (px)
                                                 <span class="description"><?php esc_html_e( 'Distance from the top to start showing the sticky bar.', 'wpc-sticky-add-to-cart' ); ?></span>
                                             </td>
@@ -209,7 +217,9 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
                                             <th scope="row"><?php esc_html_e( 'Offset bottom', 'wpc-sticky-add-to-cart' ); ?></th>
                                             <td>
                                                 <label>
-                                                    <input type="number" min="0" step="1" class="small-text" name="wpcsb_settings[offset_bottom]" value="<?php echo esc_attr( $offset_bottom ); ?>"/>
+                                                    <input type="number" min="0" step="1" class="small-text"
+                                                           name="wpcsb_settings[offset_bottom]"
+                                                           value="<?php echo esc_attr( $offset_bottom ); ?>"/>
                                                 </label> (px)
                                                 <span class="description"><?php esc_html_e( 'Distance from the bottom to hiding the sticky bar.', 'wpc-sticky-add-to-cart' ); ?></span>
                                             </td>
@@ -249,7 +259,9 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
                                                 <label> <select name="wpcsb_settings[show_quick_view]">
                                                         <option value="yes" <?php selected( $show_quick_view, 'yes' ); ?>><?php esc_html_e( 'Yes', 'wpc-sticky-add-to-cart' ); ?></option>
                                                         <option value="no" <?php selected( $show_quick_view, 'no' ); ?>><?php esc_html_e( 'No', 'wpc-sticky-add-to-cart' ); ?></option>
-                                                    </select> </label> <span class="description">If yes, please install <a href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=plugin-information&plugin=woo-smart-quick-view&TB_iframe=true&width=800&height=550' ) ); ?>" class="thickbox" title="WPC Smart Quick View">WPC Smart Quick View</a> to make it work.</span>
+                                                    </select> </label> <span class="description">If yes, please install <a
+                                                            href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=plugin-information&plugin=woo-smart-quick-view&TB_iframe=true&width=800&height=550' ) ); ?>"
+                                                            class="thickbox" title="WPC Smart Quick View">WPC Smart Quick View</a> to make it work.</span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -258,7 +270,10 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
                                                 <label> <select name="wpcsb_settings[show_compare]">
                                                         <option value="yes" <?php selected( $show_compare, 'yes' ); ?>><?php esc_html_e( 'Yes', 'wpc-sticky-add-to-cart' ); ?></option>
                                                         <option value="no" <?php selected( $show_compare, 'no' ); ?>><?php esc_html_e( 'No', 'wpc-sticky-add-to-cart' ); ?></option>
-                                                    </select> </label> <span class="description">If yes, please install <a href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=plugin-information&plugin=woo-smart-compare&TB_iframe=true&width=800&height=550' ) ); ?>" class="thickbox" title="WPC Smart Compare">WPC Smart Compare</a> to make it work.</span>
+                                                    </select> </label> <span class="description">If yes, please install <a
+                                                            href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=plugin-information&plugin=woo-smart-compare&TB_iframe=true&width=800&height=550' ) ); ?>"
+                                                            class="thickbox"
+                                                            title="WPC Smart Compare">WPC Smart Compare</a> to make it work.</span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -267,7 +282,9 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
                                                 <label> <select name="wpcsb_settings[show_wishlist]">
                                                         <option value="yes" <?php selected( $show_wishlist, 'yes' ); ?>><?php esc_html_e( 'Yes', 'wpc-sticky-add-to-cart' ); ?></option>
                                                         <option value="no" <?php selected( $show_wishlist, 'no' ); ?>><?php esc_html_e( 'No', 'wpc-sticky-add-to-cart' ); ?></option>
-                                                    </select> </label> <span class="description">If yes, please install <a href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=plugin-information&plugin=wpc-sticky-add-to-cart&TB_iframe=true&width=800&height=550' ) ); ?>" class="thickbox" title="WPC Smart Wishlist">WPC Smart Wishlist</a> to make it work.</span>
+                                                    </select> </label> <span class="description">If yes, please install <a
+                                                            href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=plugin-information&plugin=wpc-sticky-add-to-cart&TB_iframe=true&width=800&height=550' ) ); ?>"
+                                                            class="thickbox" title="WPC Smart Wishlist">WPC Smart Wishlist</a> to make it work.</span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -276,7 +293,9 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
                                                 <label> <select name="wpcsb_settings[show_buy_now]">
                                                         <option value="yes" <?php selected( $show_buy_now, 'yes' ); ?>><?php esc_html_e( 'Yes', 'wpc-sticky-add-to-cart' ); ?></option>
                                                         <option value="no" <?php selected( $show_buy_now, 'no' ); ?>><?php esc_html_e( 'No', 'wpc-sticky-add-to-cart' ); ?></option>
-                                                    </select> </label> <span class="description">If yes, please install <a href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=plugin-information&plugin=wpc-buy-now-button&TB_iframe=true&width=800&height=550' ) ); ?>" class="thickbox" title="WPC Buy Now Button">WPC Buy Now Button</a> to make it work.</span>
+                                                    </select> </label> <span class="description">If yes, please install <a
+                                                            href="<?php echo esc_url( admin_url( 'plugin-install.php?tab=plugin-information&plugin=wpc-buy-now-button&TB_iframe=true&width=800&height=550' ) ); ?>"
+                                                            class="thickbox" title="WPC Buy Now Button">WPC Buy Now Button</a> to make it work.</span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -324,7 +343,9 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
                                             <th><?php esc_html_e( 'Add to cart', 'wpc-sticky-add-to-cart' ); ?></th>
                                             <td>
                                                 <label>
-                                                    <input type="text" name="wpcsb_localization[add_to_cart]" value="<?php echo esc_attr( self::localization( 'add_to_cart' ) ); ?>" placeholder="<?php esc_attr_e( 'Add to cart', 'wpc-sticky-add-to-cart' ); ?>"/>
+                                                    <input type="text" name="wpcsb_localization[add_to_cart]"
+                                                           value="<?php echo esc_attr( self::localization( 'add_to_cart' ) ); ?>"
+                                                           placeholder="<?php esc_attr_e( 'Add to cart', 'wpc-sticky-add-to-cart' ); ?>"/>
                                                 </label>
                                             </td>
                                         </tr>
@@ -343,13 +364,17 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
                             </div>
                             <div class="wpclever_settings_page_suggestion_content">
                                 <div>
-                                    To display custom engaging real-time messages on any wished positions, please install
-                                    <a href="https://wordpress.org/plugins/wpc-smart-messages/" target="_blank">WPC Smart Messages</a> plugin. It's free!
+                                    To display custom engaging real-time messages on any wished positions, please
+                                    install
+                                    <a href="https://wordpress.org/plugins/wpc-smart-messages/" target="_blank">WPC
+                                        Smart Messages</a> plugin. It's free!
                                 </div>
                                 <div>
                                     Wanna save your precious time working on variations? Try our brand-new free plugin
-                                    <a href="https://wordpress.org/plugins/wpc-variation-bulk-editor/" target="_blank">WPC Variation Bulk Editor</a> and
-                                    <a href="https://wordpress.org/plugins/wpc-variation-duplicator/" target="_blank">WPC Variation Duplicator</a>.
+                                    <a href="https://wordpress.org/plugins/wpc-variation-bulk-editor/" target="_blank">WPC
+                                        Variation Bulk Editor</a> and
+                                    <a href="https://wordpress.org/plugins/wpc-variation-duplicator/" target="_blank">WPC
+                                        Variation Duplicator</a>.
                                 </div>
                             </div>
                         </div>
@@ -434,7 +459,7 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
 						$product_id = $product->get_id();
 					}
 
-					if ( ! $product || ! $product_id ) {
+					if ( ! $product_id || ! $product || ! is_a( $product, 'WC_Product' ) ) {
 						return;
 					}
 
@@ -535,7 +560,8 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
 										woocommerce_template_single_add_to_cart();
 									} else {
 										if ( $product->is_in_stock() && $product->is_purchasable() ) { ?>
-                                            <div class="wpcsb-add-to-cart" data-product_id="<?php echo esc_attr( $product_id ); ?>">
+                                            <div class="wpcsb-add-to-cart"
+                                                 data-product_id="<?php echo esc_attr( $product_id ); ?>">
 												<?php
 												do_action( 'wpcsb_before_add_to_cart_form', $product );
 
