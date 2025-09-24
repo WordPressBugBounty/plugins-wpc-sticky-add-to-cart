@@ -3,7 +3,7 @@
 Plugin Name: WPC Sticky Add To Cart for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Sticky Add To Cart brings about a nicer, customer-friendly sticky add-to-cart bar for your site.
-Version: 2.1.1
+Version: 2.1.2
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-sticky-add-to-cart
@@ -12,14 +12,14 @@ Requires Plugins: woocommerce
 Requires at least: 4.0
 Tested up to: 6.8
 WC requires at least: 3.0
-WC tested up to: 9.9
+WC tested up to: 10.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WPCSB_VERSION' ) && define( 'WPCSB_VERSION', '2.1.1' );
+! defined( 'WPCSB_VERSION' ) && define( 'WPCSB_VERSION', '2.1.2' );
 ! defined( 'WPCSB_LITE' ) && define( 'WPCSB_LITE', __FILE__ );
 ! defined( 'WPCSB_FILE' ) && define( 'WPCSB_FILE', __FILE__ );
 ! defined( 'WPCSB_URI' ) && define( 'WPCSB_URI', plugin_dir_url( __FILE__ ) );
@@ -520,18 +520,22 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
 											?>
                                         </div>
 										<?php
-										if ( ( self::get_setting( 'show_compare', 'yes' ) === 'yes' && class_exists( 'WPCleverWoosc' ) ) || ( self::get_setting( 'show_quick_view', 'yes' ) === 'yes' && class_exists( 'WPCleverWoosq' ) ) || ( self::get_setting( 'show_wishlist', 'yes' ) === 'yes' && class_exists( 'WPCleverWoosw' ) ) ) {
+										$show_compare    = self::get_setting( 'show_compare', 'yes' ) === 'yes' && class_exists( 'WPCleverWoosc' );
+										$show_quick_view = self::get_setting( 'show_quick_view', 'yes' ) === 'yes' && class_exists( 'WPCleverWoosq' );
+										$show_wishlist   = self::get_setting( 'show_wishlist', 'yes' ) === 'yes' && class_exists( 'WPCleverWoosw' );
+
+										if ( $show_compare || $show_quick_view || $show_wishlist ) {
 											echo '<div class="wpcsb-product-btn">';
 
-											if ( self::get_setting( 'show_quick_view', 'yes' ) === 'yes' && class_exists( 'WPCleverWoosq' ) ) {
+											if ( $show_quick_view ) {
 												echo do_shortcode( '[woosq]' );
 											}
 
-											if ( self::get_setting( 'show_compare', 'yes' ) === 'yes' && class_exists( 'WPCleverWoosc' ) ) {
+											if ( $show_compare ) {
 												echo do_shortcode( '[woosc]' );
 											}
 
-											if ( self::get_setting( 'show_wishlist', 'yes' ) === 'yes' && class_exists( 'WPCleverWoosw' ) ) {
+											if ( $show_wishlist ) {
 												echo do_shortcode( '[woosw]' );
 											}
 

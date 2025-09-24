@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPC Sticky Add To Cart for WooCommerce 2.1.1\n"
+"Project-Id-Version: WPC Sticky Add To Cart for WooCommerce 2.1.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wpc-sticky-add-to-cart\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-06-24T01:33:54+00:00\n"
+"POT-Creation-Date: 2025-09-24T08:39:50+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: wpc-sticky-add-to-cart\n"
@@ -190,7 +190,7 @@ msgstr ""
 
 #: wpc-sticky-add-to-cart.php:352
 #: wpc-sticky-add-to-cart.php:357
-#: wpc-sticky-add-to-cart.php:608
+#: wpc-sticky-add-to-cart.php:612
 msgid "Add to cart"
 msgstr ""
 
@@ -198,58 +198,58 @@ msgstr ""
 msgid "Community support"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:652
+#: wpc-sticky-add-to-cart.php:656
 msgid "Before container"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:653
+#: wpc-sticky-add-to-cart.php:657
 msgid "After container"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:654
+#: wpc-sticky-add-to-cart.php:658
 msgid "Before product"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:655
+#: wpc-sticky-add-to-cart.php:659
 msgid "After product"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:656
+#: wpc-sticky-add-to-cart.php:660
 msgid "Before product info"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:657
+#: wpc-sticky-add-to-cart.php:661
 msgid "After product info"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:658
+#: wpc-sticky-add-to-cart.php:662
 msgid "Before product image"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:659
+#: wpc-sticky-add-to-cart.php:663
 msgid "After product image"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:660
+#: wpc-sticky-add-to-cart.php:664
 msgid "Before product data"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:661
+#: wpc-sticky-add-to-cart.php:665
 msgid "After product data"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:662
+#: wpc-sticky-add-to-cart.php:666
 msgid "Before product name"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:663
+#: wpc-sticky-add-to-cart.php:667
 msgid "After product name"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:664
+#: wpc-sticky-add-to-cart.php:668
 msgid "Before product price"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:665
+#: wpc-sticky-add-to-cart.php:669
 msgid "After product price"
 msgstr ""
