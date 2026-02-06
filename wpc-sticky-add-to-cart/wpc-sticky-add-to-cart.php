@@ -3,28 +3,28 @@
 Plugin Name: WPC Sticky Add To Cart for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Sticky Add To Cart brings about a nicer, customer-friendly sticky add-to-cart bar for your site.
-Version: 2.1.2
+Version: 2.1.3
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-sticky-add-to-cart
 Domain Path: /languages/
 Requires Plugins: woocommerce
 Requires at least: 4.0
-Tested up to: 6.8
+Tested up to: 6.9
 WC requires at least: 3.0
-WC tested up to: 10.2
+WC tested up to: 10.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WPCSB_VERSION' ) && define( 'WPCSB_VERSION', '2.1.2' );
+! defined( 'WPCSB_VERSION' ) && define( 'WPCSB_VERSION', '2.1.3' );
 ! defined( 'WPCSB_LITE' ) && define( 'WPCSB_LITE', __FILE__ );
 ! defined( 'WPCSB_FILE' ) && define( 'WPCSB_FILE', __FILE__ );
 ! defined( 'WPCSB_URI' ) && define( 'WPCSB_URI', plugin_dir_url( __FILE__ ) );
 ! defined( 'WPCSB_DIR' ) && define( 'WPCSB_DIR', plugin_dir_path( __FILE__ ) );
-! defined( 'WPCSB_REVIEWS' ) && define( 'WPCSB_REVIEWS', 'https://wordpress.org/support/plugin/wpc-sticky-add-to-cart/reviews/?filter=5' );
+! defined( 'WPCSB_REVIEWS' ) && define( 'WPCSB_REVIEWS', 'https://wordpress.org/support/plugin/wpc-sticky-add-to-cart/reviews/' );
 ! defined( 'WPCSB_CHANGELOG' ) && define( 'WPCSB_CHANGELOG', 'https://wordpress.org/plugins/wpc-sticky-add-to-cart/#developers' );
 ! defined( 'WPCSB_DISCUSSION' ) && define( 'WPCSB_DISCUSSION', 'https://wordpress.org/support/plugin/wpc-sticky-add-to-cart' );
 ! defined( 'WPC_URI' ) && define( 'WPC_URI', WPCSB_URI );
@@ -34,108 +34,108 @@ include 'includes/kit/wpc-kit.php';
 include 'includes/hpos.php';
 
 if ( ! function_exists( 'wpcsb_init' ) ) {
-	add_action( 'plugins_loaded', 'wpcsb_init', 11 );
+    add_action( 'plugins_loaded', 'wpcsb_init', 11 );
 
-	function wpcsb_init() {
-		if ( ! function_exists( 'WC' ) || ! version_compare( WC()->version, '3.0', '>=' ) ) {
-			add_action( 'admin_notices', 'wpcsb_notice_wc' );
+    function wpcsb_init() {
+        if ( ! function_exists( 'WC' ) || ! version_compare( WC()->version, '3.0', '>=' ) ) {
+            add_action( 'admin_notices', 'wpcsb_notice_wc' );
 
-			return null;
-		}
+            return null;
+        }
 
-		if ( ! class_exists( 'WPCleverWpcsb' ) && class_exists( 'WC_Product' ) ) {
-			class WPCleverWpcsb {
-				protected static $settings = [];
-				protected static $localization = [];
-				protected static $instance = null;
+        if ( ! class_exists( 'WPCleverWpcsb' ) && class_exists( 'WC_Product' ) ) {
+            class WPCleverWpcsb {
+                protected static $settings = [];
+                protected static $localization = [];
+                protected static $instance = null;
 
-				public static function instance() {
-					if ( is_null( self::$instance ) ) {
-						self::$instance = new self();
-					}
+                public static function instance() {
+                    if ( is_null( self::$instance ) ) {
+                        self::$instance = new self();
+                    }
 
-					return self::$instance;
-				}
+                    return self::$instance;
+                }
 
-				function __construct() {
-					self::$settings     = (array) get_option( 'wpcsb_settings', [] );
-					self::$localization = (array) get_option( 'wpcsb_localization', [] );
+                function __construct() {
+                    self::$settings     = (array) get_option( 'wpcsb_settings', [] );
+                    self::$localization = (array) get_option( 'wpcsb_localization', [] );
 
-					// init
-					add_action( 'init', [ $this, 'init' ] );
+                    // init
+                    add_action( 'init', [ $this, 'init' ] );
 
-					// settings
-					add_action( 'admin_init', [ $this, 'register_settings' ] );
-					add_action( 'admin_menu', [ $this, 'admin_menu' ] );
+                    // settings
+                    add_action( 'admin_init', [ $this, 'register_settings' ] );
+                    add_action( 'admin_menu', [ $this, 'admin_menu' ] );
 
-					// scripts
-					add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
-					add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
+                    // scripts
+                    add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+                    add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
 
-					// link
-					add_filter( 'plugin_action_links', [ $this, 'action_links' ], 10, 2 );
-					add_filter( 'plugin_row_meta', [ $this, 'row_meta' ], 10, 2 );
+                    // link
+                    add_filter( 'plugin_action_links', [ $this, 'action_links' ], 10, 2 );
+                    add_filter( 'plugin_row_meta', [ $this, 'row_meta' ], 10, 2 );
 
-					// add-to-cart form
-					add_action( 'woocommerce_before_add_to_cart_button', [ $this, 'add_to_cart_button' ] );
+                    // add-to-cart form
+                    add_action( 'woocommerce_before_add_to_cart_button', [ $this, 'add_to_cart_button' ] );
 
-					// footer
-					add_action( 'wp_footer', [ $this, 'footer' ] );
+                    // footer
+                    add_action( 'wp_footer', [ $this, 'footer' ] );
 
-					// WPC Smart Messages
-					add_filter( 'wpcsm_locations', [ $this, 'wpcsm_locations' ] );
-				}
+                    // WPC Smart Messages
+                    add_filter( 'wpcsm_locations', [ $this, 'wpcsm_locations' ] );
+                }
 
-				public function init() {
-					// load text-domain
-					load_plugin_textdomain( 'wpc-sticky-add-to-cart', false, basename( WPCSB_DIR ) . '/languages/' );
-				}
+                public function init() {
+                    // load text-domain
+                    load_plugin_textdomain( 'wpc-sticky-add-to-cart', false, basename( WPCSB_DIR ) . '/languages/' );
+                }
 
-				public static function get_settings() {
-					return apply_filters( 'wpcsb_get_settings', self::$settings );
-				}
+                public static function get_settings() {
+                    return apply_filters( 'wpcsb_get_settings', self::$settings );
+                }
 
-				public static function get_setting( $name, $default = false ) {
-					if ( ! empty( self::$settings ) && isset( self::$settings[ $name ] ) ) {
-						$setting = self::$settings[ $name ];
-					} else {
-						$setting = get_option( 'wpcsb_' . $name, $default );
-					}
+                public static function get_setting( $name, $default = false ) {
+                    if ( ! empty( self::$settings ) && isset( self::$settings[ $name ] ) ) {
+                        $setting = self::$settings[ $name ];
+                    } else {
+                        $setting = get_option( 'wpcsb_' . $name, $default );
+                    }
 
-					return apply_filters( 'wpcsb_get_setting', $setting, $name, $default );
-				}
+                    return apply_filters( 'wpcsb_get_setting', $setting, $name, $default );
+                }
 
-				public static function localization( $key = '', $default = '' ) {
-					$str = '';
+                public static function localization( $key = '', $default = '' ) {
+                    $str = '';
 
-					if ( ! empty( $key ) && ! empty( self::$localization[ $key ] ) ) {
-						$str = self::$localization[ $key ];
-					} elseif ( ! empty( $default ) ) {
-						$str = $default;
-					}
+                    if ( ! empty( $key ) && ! empty( self::$localization[ $key ] ) ) {
+                        $str = self::$localization[ $key ];
+                    } elseif ( ! empty( $default ) ) {
+                        $str = $default;
+                    }
 
-					return apply_filters( 'wpcsb_localization_' . $key, $str );
-				}
+                    return apply_filters( 'wpcsb_localization_' . $key, $str );
+                }
 
-				function register_settings() {
-					// settings
-					register_setting( 'wpcsb_settings', 'wpcsb_settings' );
+                function register_settings() {
+                    // settings
+                    register_setting( 'wpcsb_settings', 'wpcsb_settings' );
 
-					// localization
-					register_setting( 'wpcsb_localization', 'wpcsb_localization' );
-				}
+                    // localization
+                    register_setting( 'wpcsb_localization', 'wpcsb_localization' );
+                }
 
-				function admin_menu() {
-					add_submenu_page( 'wpclever', esc_html__( 'WPC Sticky Add To Cart', 'wpc-sticky-add-to-cart' ), esc_html__( 'Sticky Add To Cart', 'wpc-sticky-add-to-cart' ), 'manage_options', 'wpclever-wpcsb', [
-						$this,
-						'admin_menu_content'
-					] );
-				}
+                function admin_menu() {
+                    add_submenu_page( 'wpclever', esc_html__( 'WPC Sticky Add To Cart', 'wpc-sticky-add-to-cart' ), esc_html__( 'Sticky Add To Cart', 'wpc-sticky-add-to-cart' ), 'manage_options', 'wpclever-wpcsb', [
+                            $this,
+                            'admin_menu_content'
+                    ] );
+                }
 
-				function admin_menu_content() {
-					add_thickbox();
-					$active_tab = sanitize_key( $_GET['tab'] ?? 'settings' );
-					?>
+                function admin_menu_content() {
+                    add_thickbox();
+                    $active_tab = sanitize_key( $_GET['tab'] ?? 'settings' );
+                    ?>
                     <div class="wpclever_settings_page wrap">
                         <div class="wpclever_settings_page_header">
                             <a class="wpclever_settings_page_header_logo" href="https://wpclever.net/"
@@ -144,7 +144,7 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
                                 <div class="wpclever_settings_page_title"><?php echo esc_html__( 'WPC Sticky Add To Cart', 'wpc-sticky-add-to-cart' ) . ' ' . esc_html( WPCSB_VERSION ); ?></div>
                                 <div class="wpclever_settings_page_desc about-text">
                                     <p>
-										<?php printf( /* translators: stars */ esc_html__( 'Thank you for using our plugin! If you are satisfied, please reward it a full five-star %s rating.', 'wpc-sticky-add-to-cart' ), '<span style="color:#ffb900">&#9733;&#9733;&#9733;&#9733;&#9733;</span>' ); ?>
+                                        <?php printf( /* translators: stars */ esc_html__( 'Thank you for using our plugin! If you are satisfied, please reward it a full five-star %s rating.', 'wpc-sticky-add-to-cart' ), '<span style="color:#ffb900">&#9733;&#9733;&#9733;&#9733;&#9733;</span>' ); ?>
                                         <br/>
                                         <a href="<?php echo esc_url( WPCSB_REVIEWS ); ?>"
                                            target="_blank"><?php esc_html_e( 'Reviews', 'wpc-sticky-add-to-cart' ); ?></a>
@@ -159,47 +159,47 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
                             </div>
                         </div>
                         <h2></h2>
-						<?php if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] ) { ?>
+                        <?php if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] ) { ?>
                             <div class="notice notice-success is-dismissible">
                                 <p><?php esc_html_e( 'Settings updated.', 'wpc-sticky-add-to-cart' ); ?></p>
                             </div>
-						<?php } ?>
+                        <?php } ?>
                         <div class="wpclever_settings_page_nav">
                             <h2 class="nav-tab-wrapper">
                                 <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-wpcsb&tab=settings' ) ); ?>"
                                    class="<?php echo esc_attr( $active_tab === 'settings' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>">
-									<?php esc_html_e( 'Settings', 'wpc-sticky-add-to-cart' ); ?>
+                                    <?php esc_html_e( 'Settings', 'wpc-sticky-add-to-cart' ); ?>
                                 </a>
                                 <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-wpcsb&tab=localization' ) ); ?>"
                                    class="<?php echo esc_attr( $active_tab === 'localization' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>">
-									<?php esc_html_e( 'Localization', 'wpc-sticky-add-to-cart' ); ?>
+                                    <?php esc_html_e( 'Localization', 'wpc-sticky-add-to-cart' ); ?>
                                 </a>
                                 <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-kit' ) ); ?>"
                                    class="nav-tab">
-									<?php esc_html_e( 'Essential Kit', 'wpc-sticky-add-to-cart' ); ?>
+                                    <?php esc_html_e( 'Essential Kit', 'wpc-sticky-add-to-cart' ); ?>
                                 </a>
                             </h2>
                         </div>
                         <div class="wpclever_settings_page_content">
-							<?php if ( $active_tab === 'settings' ) {
-								$position           = self::get_setting( 'position', 'bottom' );
-								$offset_top         = self::get_setting( 'offset_top', 0 );
-								$offset_bottom      = self::get_setting( 'offset_bottom', 0 );
-								$show_price         = self::get_setting( 'show_price', 'yes' );
-								$show_quantity      = self::get_setting( 'show_quantity', 'yes' );
-								$variations_form    = self::get_setting( 'variations_form', 'no' );
-								$show_compare       = self::get_setting( 'show_compare', 'yes' );
-								$show_quick_view    = self::get_setting( 'show_quick_view', 'yes' );
-								$show_wishlist      = self::get_setting( 'show_wishlist', 'yes' );
-								$show_buy_now       = self::get_setting( 'show_buy_now', 'yes' );
-								$hide_unpurchasable = self::get_setting( 'hide_unpurchasable', 'no' );
-								$hide_types         = self::get_setting( 'hide_types', [] );
-								?>
+                            <?php if ( $active_tab === 'settings' ) {
+                                $position           = self::get_setting( 'position', 'bottom' );
+                                $offset_top         = self::get_setting( 'offset_top', 0 );
+                                $offset_bottom      = self::get_setting( 'offset_bottom', 0 );
+                                $show_price         = self::get_setting( 'show_price', 'yes' );
+                                $show_quantity      = self::get_setting( 'show_quantity', 'yes' );
+                                $variations_form    = self::get_setting( 'variations_form', 'no' );
+                                $show_compare       = self::get_setting( 'show_compare', 'yes' );
+                                $show_quick_view    = self::get_setting( 'show_quick_view', 'yes' );
+                                $show_wishlist      = self::get_setting( 'show_wishlist', 'yes' );
+                                $show_buy_now       = self::get_setting( 'show_buy_now', 'yes' );
+                                $hide_unpurchasable = self::get_setting( 'hide_unpurchasable', 'no' );
+                                $hide_types         = self::get_setting( 'hide_types', [] );
+                                ?>
                                 <form method="post" action="options.php">
                                     <table class="form-table wpcsb-settings">
                                         <tr class="heading">
                                             <th colspan="2">
-												<?php esc_html_e( 'General', 'wpc-sticky-add-to-cart' ); ?>
+                                                <?php esc_html_e( 'General', 'wpc-sticky-add-to-cart' ); ?>
                                             </th>
                                         </tr>
                                         <tr>
@@ -319,33 +319,33 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Disable for product types', 'wpc-sticky-add-to-cart' ); ?></th>
                                             <td>
-												<?php
-												if ( ( $types = wc_get_product_types() ) && ! empty( $types ) ) {
-													echo '<select class="wpcsb_product_types" name="wpcsb_settings[hide_types][]" multiple>';
+                                                <?php
+                                                if ( ( $types = wc_get_product_types() ) && ! empty( $types ) ) {
+                                                    echo '<select class="wpcsb_product_types" name="wpcsb_settings[hide_types][]" multiple>';
 
-													foreach ( $types as $key => $name ) {
-														echo '<option value="' . esc_attr( $key ) . '" ' . ( in_array( $key, $hide_types, true ) ? 'selected' : '' ) . '>' . esc_html( $name ) . '</option>';
-													}
+                                                    foreach ( $types as $key => $name ) {
+                                                        echo '<option value="' . esc_attr( $key ) . '" ' . ( in_array( $key, $hide_types, true ) ? 'selected' : '' ) . '>' . esc_html( $name ) . '</option>';
+                                                    }
 
-													echo '</select>';
-												}
-												?>
+                                                    echo '</select>';
+                                                }
+                                                ?>
                                             </td>
                                         </tr>
                                         <tr class="submit">
                                             <th colspan="2">
-												<?php settings_fields( 'wpcsb_settings' ); ?><?php submit_button(); ?>
+                                                <?php settings_fields( 'wpcsb_settings' ); ?><?php submit_button(); ?>
                                             </th>
                                         </tr>
                                     </table>
                                 </form>
-							<?php } elseif ( $active_tab === 'localization' ) { ?>
+                            <?php } elseif ( $active_tab === 'localization' ) { ?>
                                 <form method="post" action="options.php">
                                     <table class="form-table">
                                         <tr class="heading">
                                             <th scope="row"><?php esc_html_e( 'General', 'wpc-sticky-add-to-cart' ); ?></th>
                                             <td>
-												<?php esc_html_e( 'Leave blank to use the default text and its equivalent translation in multiple languages.', 'wpc-sticky-add-to-cart' ); ?>
+                                                <?php esc_html_e( 'Leave blank to use the default text and its equivalent translation in multiple languages.', 'wpc-sticky-add-to-cart' ); ?>
                                             </td>
                                         </tr>
                                         <tr>
@@ -360,12 +360,12 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
                                         </tr>
                                         <tr class="submit">
                                             <th colspan="2">
-												<?php settings_fields( 'wpcsb_localization' ); ?><?php submit_button(); ?>
+                                                <?php settings_fields( 'wpcsb_localization' ); ?><?php submit_button(); ?>
                                             </th>
                                         </tr>
                                     </table>
                                 </form>
-							<?php } ?>
+                            <?php } ?>
                         </div><!-- /.wpclever_settings_page_content -->
                         <div class="wpclever_settings_page_suggestion">
                             <div class="wpclever_settings_page_suggestion_label">
@@ -388,304 +388,304 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
                             </div>
                         </div>
                     </div>
-					<?php
-				}
+                    <?php
+                }
 
-				function enqueue_scripts() {
-					wp_enqueue_style( 'wpcsb-frontend', WPCSB_URI . 'assets/css/frontend.css', [], WPCSB_VERSION );
-					wp_enqueue_script( 'wpcsb-frontend', WPCSB_URI . 'assets/js/frontend.js', [ 'jquery' ], WPCSB_VERSION, true );
-					wp_localize_script( 'wpcsb-frontend', 'wpcsb_vars', [
-							'offset_top'    => apply_filters( 'wpcsb_offset_top', self::get_setting( 'offset_top', 0 ) ),
-							'offset_bottom' => apply_filters( 'wpcsb_offset_bottom', self::get_setting( 'offset_bottom', 0 ) ),
-						]
-					);
-				}
+                function enqueue_scripts() {
+                    wp_enqueue_style( 'wpcsb-frontend', WPCSB_URI . 'assets/css/frontend.css', [], WPCSB_VERSION );
+                    wp_enqueue_script( 'wpcsb-frontend', WPCSB_URI . 'assets/js/frontend.js', [ 'jquery' ], WPCSB_VERSION, true );
+                    wp_localize_script( 'wpcsb-frontend', 'wpcsb_vars', [
+                                    'offset_top'    => apply_filters( 'wpcsb_offset_top', self::get_setting( 'offset_top', 0 ) ),
+                                    'offset_bottom' => apply_filters( 'wpcsb_offset_bottom', self::get_setting( 'offset_bottom', 0 ) ),
+                            ]
+                    );
+                }
 
-				function admin_enqueue_scripts( $hook ) {
-					wp_enqueue_style( 'wpcsb-backend', WPCSB_URI . 'assets/css/backend.css', [ 'woocommerce_admin_styles' ], WPCSB_VERSION );
-					wp_enqueue_script( 'wpcsb-backend', WPCSB_URI . 'assets/js/backend.js', [
-						'jquery',
-						'selectWoo',
-					], WPCSB_VERSION, true );
-				}
+                function admin_enqueue_scripts( $hook ) {
+                    wp_enqueue_style( 'wpcsb-backend', WPCSB_URI . 'assets/css/backend.css', [ 'woocommerce_admin_styles' ], WPCSB_VERSION );
+                    wp_enqueue_script( 'wpcsb-backend', WPCSB_URI . 'assets/js/backend.js', [
+                            'jquery',
+                            'selectWoo',
+                    ], WPCSB_VERSION, true );
+                }
 
-				function action_links( $links, $file ) {
-					static $plugin;
+                function action_links( $links, $file ) {
+                    static $plugin;
 
-					if ( ! isset( $plugin ) ) {
-						$plugin = plugin_basename( __FILE__ );
-					}
+                    if ( ! isset( $plugin ) ) {
+                        $plugin = plugin_basename( __FILE__ );
+                    }
 
-					if ( $plugin === $file ) {
-						$settings = '<a href="' . esc_url( admin_url( 'admin.php?page=wpclever-wpcsb&tab=settings' ) ) . '">' . esc_html__( 'Settings', 'wpc-sticky-add-to-cart' ) . '</a>';
-						array_unshift( $links, $settings );
-					}
+                    if ( $plugin === $file ) {
+                        $settings = '<a href="' . esc_url( admin_url( 'admin.php?page=wpclever-wpcsb&tab=settings' ) ) . '">' . esc_html__( 'Settings', 'wpc-sticky-add-to-cart' ) . '</a>';
+                        array_unshift( $links, $settings );
+                    }
 
-					return (array) $links;
-				}
+                    return (array) $links;
+                }
 
-				function row_meta( $links, $file ) {
-					static $plugin;
+                function row_meta( $links, $file ) {
+                    static $plugin;
 
-					if ( ! isset( $plugin ) ) {
-						$plugin = plugin_basename( __FILE__ );
-					}
+                    if ( ! isset( $plugin ) ) {
+                        $plugin = plugin_basename( __FILE__ );
+                    }
 
-					if ( $plugin === $file ) {
-						$row_meta = [
-							'support' => '<a href="' . esc_url( WPCSB_DISCUSSION ) . '" target="_blank">' . esc_html__( 'Community support', 'wpc-sticky-add-to-cart' ) . '</a>',
-						];
+                    if ( $plugin === $file ) {
+                        $row_meta = [
+                                'support' => '<a href="' . esc_url( WPCSB_DISCUSSION ) . '" target="_blank">' . esc_html__( 'Community support', 'wpc-sticky-add-to-cart' ) . '</a>',
+                        ];
 
-						return array_merge( $links, $row_meta );
-					}
+                        return array_merge( $links, $row_meta );
+                    }
 
-					return (array) $links;
-				}
+                    return (array) $links;
+                }
 
-				function add_to_cart_button() {
-					global $product;
+                function add_to_cart_button() {
+                    global $product;
 
-					if ( $product ) {
-						echo '<span class="wpcsb-id wpcsb-id-' . esc_attr( $product->get_id() ) . '" data-product_id="' . esc_attr( $product->get_id() ) . '"></span>';
-					}
-				}
+                    if ( $product ) {
+                        echo '<span class="wpcsb-id wpcsb-id-' . esc_attr( $product->get_id() ) . '" data-product_id="' . esc_attr( $product->get_id() ) . '"></span>';
+                    }
+                }
 
-				function footer() {
-					$custom_product_id = apply_filters( 'wpcsb_custom_product_id', false );
+                function footer() {
+                    $custom_product_id = apply_filters( 'wpcsb_custom_product_id', false );
 
-					if ( ! is_singular( 'product' ) && ! $custom_product_id ) {
-						return;
-					}
+                    if ( ! is_singular( 'product' ) && ! $custom_product_id ) {
+                        return;
+                    }
 
-					global $product;
-					$global_product = $product;
-					$product_id     = 0;
+                    global $product;
+                    $global_product = $product;
+                    $product_id     = 0;
 
-					if ( $custom_product_id ) {
-						$product_id = $custom_product_id;
-						$product    = wc_get_product( $product_id );
-					} elseif ( $product && is_a( $product, 'WC_Product' ) ) {
-						$product_id = $product->get_id();
-					}
+                    if ( $custom_product_id ) {
+                        $product_id = $custom_product_id;
+                        $product    = wc_get_product( $product_id );
+                    } elseif ( $product && is_a( $product, 'WC_Product' ) ) {
+                        $product_id = $product->get_id();
+                    }
 
-					if ( ! $product_id || ! $product || ! is_a( $product, 'WC_Product' ) ) {
-						return;
-					}
+                    if ( ! $product_id || ! $product || ! is_a( $product, 'WC_Product' ) ) {
+                        return;
+                    }
 
-					if ( ( $hide_types = self::get_setting( 'hide_types', [] ) ) && is_array( $hide_types ) && ! empty( $hide_types ) ) {
-						foreach ( $hide_types as $product_type ) {
-							if ( $product->is_type( $product_type ) ) {
-								return;
-							}
-						}
-					}
+                    if ( ( $hide_types = self::get_setting( 'hide_types', [] ) ) && is_array( $hide_types ) && ! empty( $hide_types ) ) {
+                        foreach ( $hide_types as $product_type ) {
+                            if ( $product->is_type( $product_type ) ) {
+                                return;
+                            }
+                        }
+                    }
 
-					if ( ( self::get_setting( 'hide_unpurchasable', 'no' ) === 'yes' ) && ( ! $product->is_in_stock() || ! $product->is_purchasable() ) ) {
-						return;
-					}
+                    if ( ( self::get_setting( 'hide_unpurchasable', 'no' ) === 'yes' ) && ( ! $product->is_in_stock() || ! $product->is_purchasable() ) ) {
+                        return;
+                    }
 
-					$position      = self::get_setting( 'position', 'bottom' );
-					$wrapper_class = 'wpcsb-wrapper wpcsb-wrapper-' . $position;
-					?>
+                    $position      = self::get_setting( 'position', 'bottom' );
+                    $wrapper_class = 'wpcsb-wrapper wpcsb-wrapper-' . $position;
+                    ?>
                     <div class="<?php echo esc_attr( $wrapper_class ); ?>">
-						<?php do_action( 'wpcsb_before_container', $product ); ?>
+                        <?php do_action( 'wpcsb_before_container', $product ); ?>
                         <div class="wpcsb-container">
-							<?php do_action( 'wpcsb_before_product', $product ); ?>
+                            <?php do_action( 'wpcsb_before_product', $product ); ?>
                             <div class="wpcsb-product">
                                 <div class="wpcsb-product-info">
-									<?php do_action( 'wpcsb_before_product_info', $product ); ?>
+                                    <?php do_action( 'wpcsb_before_product_info', $product ); ?>
                                     <div class="wpcsb-product-image">
-										<?php do_action( 'wpcsb_before_product_image', $product ); ?>
+                                        <?php do_action( 'wpcsb_before_product_image', $product ); ?>
                                         <div class="wpcsb-image-ori">
-											<?php
-											echo apply_filters( 'wpcsb_product_image', wp_kses( $product->get_image(), [
-												'img' => [
-													'src'   => [],
-													'class' => [],
-													'id'    => []
-												]
-											] ), $product );
-											?>
+                                            <?php
+                                            echo apply_filters( 'wpcsb_product_image', wp_kses( $product->get_image(), [
+                                                    'img' => [
+                                                            'src'   => [],
+                                                            'class' => [],
+                                                            'id'    => []
+                                                    ]
+                                            ] ), $product );
+                                            ?>
                                         </div>
                                         <div class="wpcsb-image-new"></div>
-										<?php do_action( 'wpcsb_after_product_image', $product ); ?>
+                                        <?php do_action( 'wpcsb_after_product_image', $product ); ?>
                                     </div>
                                     <div class="wpcsb-product-data">
-										<?php do_action( 'wpcsb_before_product_data', $product ); ?>
+                                        <?php do_action( 'wpcsb_before_product_data', $product ); ?>
                                         <div class="wpcsb-product-name">
-											<?php
-											do_action( 'wpcsb_before_product_name', $product );
-											echo apply_filters( 'wpcsb_product_name', esc_html( $product->get_name() ), $product );
-											do_action( 'wpcsb_after_product_name', $product );
-											?>
+                                            <?php
+                                            do_action( 'wpcsb_before_product_name', $product );
+                                            echo apply_filters( 'wpcsb_product_name', esc_html( $product->get_name() ), $product );
+                                            do_action( 'wpcsb_after_product_name', $product );
+                                            ?>
                                         </div>
-										<?php
-										$show_compare    = self::get_setting( 'show_compare', 'yes' ) === 'yes' && class_exists( 'WPCleverWoosc' );
-										$show_quick_view = self::get_setting( 'show_quick_view', 'yes' ) === 'yes' && class_exists( 'WPCleverWoosq' );
-										$show_wishlist   = self::get_setting( 'show_wishlist', 'yes' ) === 'yes' && class_exists( 'WPCleverWoosw' );
+                                        <?php
+                                        $show_compare    = self::get_setting( 'show_compare', 'yes' ) === 'yes' && class_exists( 'WPCleverWoosc' );
+                                        $show_quick_view = self::get_setting( 'show_quick_view', 'yes' ) === 'yes' && class_exists( 'WPCleverWoosq' );
+                                        $show_wishlist   = self::get_setting( 'show_wishlist', 'yes' ) === 'yes' && class_exists( 'WPCleverWoosw' );
 
-										if ( $show_compare || $show_quick_view || $show_wishlist ) {
-											echo '<div class="wpcsb-product-btn">';
+                                        if ( $show_compare || $show_quick_view || $show_wishlist ) {
+                                            echo '<div class="wpcsb-product-btn">';
 
-											if ( $show_quick_view ) {
-												echo do_shortcode( '[woosq]' );
-											}
+                                            if ( $show_quick_view ) {
+                                                echo do_shortcode( '[woosq]' );
+                                            }
 
-											if ( $show_compare ) {
-												echo do_shortcode( '[woosc]' );
-											}
+                                            if ( $show_compare ) {
+                                                echo do_shortcode( '[woosc]' );
+                                            }
 
-											if ( $show_wishlist ) {
-												echo do_shortcode( '[woosw]' );
-											}
+                                            if ( $show_wishlist ) {
+                                                echo do_shortcode( '[woosw]' );
+                                            }
 
-											echo '</div>';
-										}
+                                            echo '</div>';
+                                        }
 
-										if ( self::get_setting( 'show_price', 'yes' ) === 'yes' ) {
-											?>
+                                        if ( self::get_setting( 'show_price', 'yes' ) === 'yes' ) {
+                                            ?>
                                             <div class="wpcsb-product-price">
-												<?php do_action( 'wpcsb_before_product_price', $product ); ?>
+                                                <?php do_action( 'wpcsb_before_product_price', $product ); ?>
                                                 <div class="wpcsb-price-ori">
-													<?php
-													echo apply_filters( 'wpcsb_product_price', wp_kses( $product->get_price_html(), [
-														'del'  => [],
-														'ins'  => [],
-														'bdi'  => [],
-														'span' => [ 'class' => [] ]
-													] ), $product );
-													?>
+                                                    <?php
+                                                    echo apply_filters( 'wpcsb_product_price', wp_kses( $product->get_price_html(), [
+                                                            'del'  => [],
+                                                            'ins'  => [],
+                                                            'bdi'  => [],
+                                                            'span' => [ 'class' => [] ]
+                                                    ] ), $product );
+                                                    ?>
                                                 </div>
                                                 <div class="wpcsb-price-new"></div>
-												<?php do_action( 'wpcsb_after_product_price', $product ); ?>
+                                                <?php do_action( 'wpcsb_after_product_price', $product ); ?>
                                             </div>
-											<?php
-										}
+                                            <?php
+                                        }
 
-										do_action( 'wpcsb_after_product_data', $product ); ?>
+                                        do_action( 'wpcsb_after_product_data', $product ); ?>
                                     </div>
-									<?php do_action( 'wpcsb_after_product_info', $product ); ?>
+                                    <?php do_action( 'wpcsb_after_product_info', $product ); ?>
                                 </div>
                                 <div class="wpcsb-product-action">
-									<?php do_action( 'wpcsb_before_product_action', $product );
+                                    <?php do_action( 'wpcsb_before_product_action', $product );
 
-									if ( $product->is_type( 'variable' ) && ( self::get_setting( 'variations_form', 'no' ) === 'yes' ) ) {
-										woocommerce_template_single_add_to_cart();
-									} else {
-										if ( $product->is_in_stock() && $product->is_purchasable() ) { ?>
+                                    if ( $product->is_type( 'variable' ) && ( self::get_setting( 'variations_form', 'no' ) === 'yes' ) ) {
+                                        woocommerce_template_single_add_to_cart();
+                                    } else {
+                                        if ( $product->is_in_stock() && $product->is_purchasable() ) { ?>
                                             <div class="wpcsb-add-to-cart"
                                                  data-product_id="<?php echo esc_attr( $product_id ); ?>">
-												<?php
-												do_action( 'wpcsb_before_add_to_cart_form', $product );
+                                                <?php
+                                                do_action( 'wpcsb_before_add_to_cart_form', $product );
 
-												if ( ( self::get_setting( 'show_quantity', 'yes' ) === 'yes' ) && ! $product->is_type( 'grouped' ) && ! $product->is_type( 'woosg' ) ) { ?>
+                                                if ( ( self::get_setting( 'show_quantity', 'yes' ) === 'yes' ) && ! $product->is_type( 'grouped' ) && ! $product->is_type( 'woosg' ) ) { ?>
                                                     <div class="wpcsb-quantity">
-														<?php
-														do_action( 'wpcsb_before_quantity_input', $product );
+                                                        <?php
+                                                        do_action( 'wpcsb_before_quantity_input', $product );
 
-														woocommerce_quantity_input( [
-															'classes'    => [
-																'input-text',
-																'qty',
-																'text',
-																'wpcsb-qty',
-																'wpcsb-qty-' . $product_id
-															],
-															'input_name' => 'wpcsb_qty'
-														], $product );
+                                                        woocommerce_quantity_input( [
+                                                                'classes'    => [
+                                                                        'input-text',
+                                                                        'qty',
+                                                                        'text',
+                                                                        'wpcsb-qty',
+                                                                        'wpcsb-qty-' . $product_id
+                                                                ],
+                                                                'input_name' => 'wpcsb_qty'
+                                                        ], $product );
 
-														do_action( 'wpcsb_after_quantity_input', $product );
-														?>
+                                                        do_action( 'wpcsb_after_quantity_input', $product );
+                                                        ?>
                                                     </div>
-												<?php } ?>
+                                                <?php } ?>
 
                                                 <div class="wpcsb-atc">
-													<?php
-													do_action( 'wpcsb_before_add_to_cart_button', $product );
+                                                    <?php
+                                                    do_action( 'wpcsb_before_add_to_cart_button', $product );
 
-													if ( self::get_setting( 'show_buy_now', 'yes' ) === 'yes' && class_exists( 'WPCleverWpcbn' ) ) {
-														echo do_shortcode( '[wpcbn_btn_single]' );
-													}
-													?>
+                                                    if ( self::get_setting( 'show_buy_now', 'yes' ) === 'yes' && class_exists( 'WPCleverWpcbn' ) ) {
+                                                        echo do_shortcode( '[wpcbn_btn_single]' );
+                                                    }
+                                                    ?>
                                                     <button type="button" class="wpcsb-btn button alt">
-														<?php
-														echo '<span>' . self::localization( 'add_to_cart', esc_html__( 'Add to cart', 'wpc-sticky-add-to-cart' ) ) . '</span>';
+                                                        <?php
+                                                        echo '<span>' . self::localization( 'add_to_cart', esc_html__( 'Add to cart', 'wpc-sticky-add-to-cart' ) ) . '</span>';
 
-														if ( self::get_setting( 'show_price', 'yes' ) === 'on_atc' ) {
-															?>
+                                                        if ( self::get_setting( 'show_price', 'yes' ) === 'on_atc' ) {
+                                                            ?>
                                                             <span class="wpcsb-product-price">
                                                         <?php do_action( 'wpcsb_before_product_price', $product ); ?>
                                                         <span class="wpcsb-price-ori">
 			                                                <?php
-			                                                echo apply_filters( 'wpcsb_product_price', wp_kses( $product->get_price_html(), [
-				                                                'del'  => [],
-				                                                'ins'  => [],
-				                                                'bdi'  => [],
-				                                                'span' => [ 'class' => [] ]
-			                                                ] ), $product );
-			                                                ?>
+                                                            echo apply_filters( 'wpcsb_product_price', wp_kses( $product->get_price_html(), [
+                                                                    'del'  => [],
+                                                                    'ins'  => [],
+                                                                    'bdi'  => [],
+                                                                    'span' => [ 'class' => [] ]
+                                                            ] ), $product );
+                                                            ?>
                                                         </span>
                                                         <span class="wpcsb-price-new"></span>
                                                         <?php do_action( 'wpcsb_after_product_price', $product ); ?>
                                                     </span>
-															<?php
-														}
-														?>
+                                                            <?php
+                                                        }
+                                                        ?>
                                                     </button>
-													<?php do_action( 'wpcsb_after_add_to_cart_button', $product ); ?>
+                                                    <?php do_action( 'wpcsb_after_add_to_cart_button', $product ); ?>
                                                 </div>
 
-												<?php do_action( 'wpcsb_after_add_to_cart_form', $product ); ?>
+                                                <?php do_action( 'wpcsb_after_add_to_cart_form', $product ); ?>
                                             </div>
-										<?php }
-									}
+                                        <?php }
+                                    }
 
-									do_action( 'wpcsb_after_product_action', $product ); ?>
+                                    do_action( 'wpcsb_after_product_action', $product ); ?>
                                 </div>
                             </div>
-							<?php do_action( 'wpcsb_after_product', $product ); ?>
+                            <?php do_action( 'wpcsb_after_product', $product ); ?>
                         </div>
-						<?php do_action( 'wpcsb_after_container', $product ); ?>
+                        <?php do_action( 'wpcsb_after_container', $product ); ?>
                     </div>
-					<?php
-					$product = $global_product;
-				}
+                    <?php
+                    $product = $global_product;
+                }
 
-				function wpcsm_locations( $locations ) {
-					$locations['WPC Sticky Add To Cart'] = [
-						'wpcsb_before_container'     => esc_html__( 'Before container', 'wpc-sticky-add-to-cart' ),
-						'wpcsb_after_container'      => esc_html__( 'After container', 'wpc-sticky-add-to-cart' ),
-						'wpcsb_before_product'       => esc_html__( 'Before product', 'wpc-sticky-add-to-cart' ),
-						'wpcsb_after_product'        => esc_html__( 'After product', 'wpc-sticky-add-to-cart' ),
-						'wpcsb_before_product_info'  => esc_html__( 'Before product info', 'wpc-sticky-add-to-cart' ),
-						'wpcsb_after_product_info'   => esc_html__( 'After product info', 'wpc-sticky-add-to-cart' ),
-						'wpcsb_before_product_image' => esc_html__( 'Before product image', 'wpc-sticky-add-to-cart' ),
-						'wpcsb_after_product_image'  => esc_html__( 'After product image', 'wpc-sticky-add-to-cart' ),
-						'wpcsb_before_product_data'  => esc_html__( 'Before product data', 'wpc-sticky-add-to-cart' ),
-						'wpcsb_after_product_data'   => esc_html__( 'After product data', 'wpc-sticky-add-to-cart' ),
-						'wpcsb_before_product_name'  => esc_html__( 'Before product name', 'wpc-sticky-add-to-cart' ),
-						'wpcsb_after_product_name'   => esc_html__( 'After product name', 'wpc-sticky-add-to-cart' ),
-						'wpcsb_before_product_price' => esc_html__( 'Before product price', 'wpc-sticky-add-to-cart' ),
-						'wpcsb_after_product_price'  => esc_html__( 'After product price', 'wpc-sticky-add-to-cart' ),
-					];
+                function wpcsm_locations( $locations ) {
+                    $locations['WPC Sticky Add To Cart'] = [
+                            'wpcsb_before_container'     => esc_html__( 'Before container', 'wpc-sticky-add-to-cart' ),
+                            'wpcsb_after_container'      => esc_html__( 'After container', 'wpc-sticky-add-to-cart' ),
+                            'wpcsb_before_product'       => esc_html__( 'Before product', 'wpc-sticky-add-to-cart' ),
+                            'wpcsb_after_product'        => esc_html__( 'After product', 'wpc-sticky-add-to-cart' ),
+                            'wpcsb_before_product_info'  => esc_html__( 'Before product info', 'wpc-sticky-add-to-cart' ),
+                            'wpcsb_after_product_info'   => esc_html__( 'After product info', 'wpc-sticky-add-to-cart' ),
+                            'wpcsb_before_product_image' => esc_html__( 'Before product image', 'wpc-sticky-add-to-cart' ),
+                            'wpcsb_after_product_image'  => esc_html__( 'After product image', 'wpc-sticky-add-to-cart' ),
+                            'wpcsb_before_product_data'  => esc_html__( 'Before product data', 'wpc-sticky-add-to-cart' ),
+                            'wpcsb_after_product_data'   => esc_html__( 'After product data', 'wpc-sticky-add-to-cart' ),
+                            'wpcsb_before_product_name'  => esc_html__( 'Before product name', 'wpc-sticky-add-to-cart' ),
+                            'wpcsb_after_product_name'   => esc_html__( 'After product name', 'wpc-sticky-add-to-cart' ),
+                            'wpcsb_before_product_price' => esc_html__( 'Before product price', 'wpc-sticky-add-to-cart' ),
+                            'wpcsb_after_product_price'  => esc_html__( 'After product price', 'wpc-sticky-add-to-cart' ),
+                    ];
 
-					return $locations;
-				}
-			}
+                    return $locations;
+                }
+            }
 
-			return WPCleverWpcsb::instance();
-		}
+            return WPCleverWpcsb::instance();
+        }
 
-		return null;
-	}
+        return null;
+    }
 }
 
 if ( ! function_exists( 'wpcsb_notice_wc' ) ) {
-	function wpcsb_notice_wc() {
-		?>
+    function wpcsb_notice_wc() {
+        ?>
         <div class="error">
             <p><strong>WPC Sticky Add To Cart</strong> requires WooCommerce version 3.0 or greater.</p>
         </div>
-		<?php
-	}
+        <?php
+    }
 }
