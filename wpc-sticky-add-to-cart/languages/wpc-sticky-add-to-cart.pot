@@ -1,15 +1,15 @@
-# Copyright (C) 2025 WPClever
+# Copyright (C) 2026 WPClever
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPC Sticky Add To Cart for WooCommerce 2.1.3\n"
+"Project-Id-Version: WPC Sticky Add To Cart for WooCommerce 2.1.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wpc-sticky-add-to-cart\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-12-04T04:05:35+00:00\n"
+"POT-Creation-Date: 2026-03-16T12:50:46+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: wpc-sticky-add-to-cart\n"
@@ -39,218 +39,222 @@ msgstr ""
 msgid "https://wpclever.net"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:129
-#: wpc-sticky-add-to-cart.php:144
+#: wpc-sticky-add-to-cart.php:140
+#: wpc-sticky-add-to-cart.php:155
 msgid "WPC Sticky Add To Cart"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:129
+#: wpc-sticky-add-to-cart.php:140
 msgid "Sticky Add To Cart"
 msgstr ""
 
 #. translators: stars
-#: wpc-sticky-add-to-cart.php:147
+#: wpc-sticky-add-to-cart.php:158
 #, php-format
 msgid "Thank you for using our plugin! If you are satisfied, please reward it a full five-star %s rating."
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:150
+#: wpc-sticky-add-to-cart.php:161
 msgid "Reviews"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:153
+#: wpc-sticky-add-to-cart.php:164
 msgid "Changelog"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:156
+#: wpc-sticky-add-to-cart.php:167
 msgid "Discussion"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:164
+#: wpc-sticky-add-to-cart.php:175
 msgid "Settings updated."
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:171
-#: wpc-sticky-add-to-cart.php:420
+#: wpc-sticky-add-to-cart.php:182
+#: wpc-sticky-add-to-cart.php:444
 msgid "Settings"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:175
+#: wpc-sticky-add-to-cart.php:186
 msgid "Localization"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:179
+#: wpc-sticky-add-to-cart.php:190
 msgid "Essential Kit"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:202
-#: wpc-sticky-add-to-cart.php:346
+#: wpc-sticky-add-to-cart.php:213
+#: wpc-sticky-add-to-cart.php:370
 msgid "General"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:206
+#: wpc-sticky-add-to-cart.php:217
 msgid "Position"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:209
+#: wpc-sticky-add-to-cart.php:220
 msgid "Top"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:210
+#: wpc-sticky-add-to-cart.php:221
 msgid "Bottom"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:215
+#: wpc-sticky-add-to-cart.php:226
 msgid "Offset top"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:222
+#: wpc-sticky-add-to-cart.php:233
 msgid "Distance from the top to start showing the sticky bar."
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:226
+#: wpc-sticky-add-to-cart.php:237
 msgid "Offset bottom"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:233
+#: wpc-sticky-add-to-cart.php:244
 msgid "Distance from the bottom to hiding the sticky bar."
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:237
+#: wpc-sticky-add-to-cart.php:248
 msgid "Show price"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:240
+#: wpc-sticky-add-to-cart.php:251
 msgid "Separately (default)"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:241
+#: wpc-sticky-add-to-cart.php:252
 msgid "On add-to-cart button"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:242
-#: wpc-sticky-add-to-cart.php:251
-#: wpc-sticky-add-to-cart.php:260
-#: wpc-sticky-add-to-cart.php:270
+#: wpc-sticky-add-to-cart.php:253
+#: wpc-sticky-add-to-cart.php:262
+#: wpc-sticky-add-to-cart.php:271
 #: wpc-sticky-add-to-cart.php:281
-#: wpc-sticky-add-to-cart.php:293
+#: wpc-sticky-add-to-cart.php:292
 #: wpc-sticky-add-to-cart.php:304
 #: wpc-sticky-add-to-cart.php:315
+#: wpc-sticky-add-to-cart.php:326
 msgid "No"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:247
+#: wpc-sticky-add-to-cart.php:258
 msgid "Show quantity"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:250
-#: wpc-sticky-add-to-cart.php:259
-#: wpc-sticky-add-to-cart.php:269
+#: wpc-sticky-add-to-cart.php:261
+#: wpc-sticky-add-to-cart.php:270
 #: wpc-sticky-add-to-cart.php:280
-#: wpc-sticky-add-to-cart.php:292
+#: wpc-sticky-add-to-cart.php:291
 #: wpc-sticky-add-to-cart.php:303
 #: wpc-sticky-add-to-cart.php:314
+#: wpc-sticky-add-to-cart.php:325
 msgid "Yes"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:256
+#: wpc-sticky-add-to-cart.php:267
 msgid "Variations form"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:262
+#: wpc-sticky-add-to-cart.php:273
 msgid "Use variations form for variable products."
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:266
+#: wpc-sticky-add-to-cart.php:277
 msgid "Show QUICK VIEW button"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:277
+#: wpc-sticky-add-to-cart.php:288
 msgid "Show COMPARE button"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:289
+#: wpc-sticky-add-to-cart.php:300
 msgid "Show WISHLIST button"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:300
+#: wpc-sticky-add-to-cart.php:311
 msgid "Show BUY NOW button"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:311
+#: wpc-sticky-add-to-cart.php:322
 msgid "Disable for unpurchasable products"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:320
+#: wpc-sticky-add-to-cart.php:331
 msgid "Disable for product types"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:348
+#: wpc-sticky-add-to-cart.php:361
+msgid "import / export"
+msgstr ""
+
+#: wpc-sticky-add-to-cart.php:372
 msgid "Leave blank to use the default text and its equivalent translation in multiple languages."
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:352
-#: wpc-sticky-add-to-cart.php:357
-#: wpc-sticky-add-to-cart.php:612
+#: wpc-sticky-add-to-cart.php:376
+#: wpc-sticky-add-to-cart.php:381
+#: wpc-sticky-add-to-cart.php:636
 msgid "Add to cart"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:436
+#: wpc-sticky-add-to-cart.php:460
 msgid "Community support"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:656
+#: wpc-sticky-add-to-cart.php:680
 msgid "Before container"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:657
+#: wpc-sticky-add-to-cart.php:681
 msgid "After container"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:658
+#: wpc-sticky-add-to-cart.php:682
 msgid "Before product"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:659
+#: wpc-sticky-add-to-cart.php:683
 msgid "After product"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:660
+#: wpc-sticky-add-to-cart.php:684
 msgid "Before product info"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:661
+#: wpc-sticky-add-to-cart.php:685
 msgid "After product info"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:662
+#: wpc-sticky-add-to-cart.php:686
 msgid "Before product image"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:663
+#: wpc-sticky-add-to-cart.php:687
 msgid "After product image"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:664
+#: wpc-sticky-add-to-cart.php:688
 msgid "Before product data"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:665
+#: wpc-sticky-add-to-cart.php:689
 msgid "After product data"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:666
+#: wpc-sticky-add-to-cart.php:690
 msgid "Before product name"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:667
+#: wpc-sticky-add-to-cart.php:691
 msgid "After product name"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:668
+#: wpc-sticky-add-to-cart.php:692
 msgid "Before product price"
 msgstr ""
 
-#: wpc-sticky-add-to-cart.php:669
+#: wpc-sticky-add-to-cart.php:693
 msgid "After product price"
 msgstr ""

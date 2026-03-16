@@ -3,8 +3,8 @@ Contributors: wpclever
 Donate link: https://wpclever.net
 Tags: woocommerce, wpc, sticky, add-to-cart
 Tested up to: 6.9
-Version: 2.1.3
-Stable tag: 2.1.3
+Version: 2.1.4
+Stable tag: 2.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,6 +51,10 @@ Visit our [live demo](https://demo.wpclever.net/wpcsb/ "live demo") here to see 
 4. Go to settings page to configure
 
 == Changelog ==
+
+= 2.1.4 =
+* Fixed: Minor CSS/JS issues in the backend
+* Updated: Compatible with WP 6.9 & Woo 10.6
 
 = 2.1.3 =
 * Fixed: Minor CSS/JS issues

@@ -3,7 +3,7 @@
 Plugin Name: WPC Sticky Add To Cart for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Sticky Add To Cart brings about a nicer, customer-friendly sticky add-to-cart bar for your site.
-Version: 2.1.3
+Version: 2.1.4
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-sticky-add-to-cart
@@ -12,14 +12,14 @@ Requires Plugins: woocommerce
 Requires at least: 4.0
 Tested up to: 6.9
 WC requires at least: 3.0
-WC tested up to: 10.3
+WC tested up to: 10.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WPCSB_VERSION' ) && define( 'WPCSB_VERSION', '2.1.3' );
+! defined( 'WPCSB_VERSION' ) && define( 'WPCSB_VERSION', '2.1.4' );
 ! defined( 'WPCSB_LITE' ) && define( 'WPCSB_LITE', __FILE__ );
 ! defined( 'WPCSB_FILE' ) && define( 'WPCSB_FILE', __FILE__ );
 ! defined( 'WPCSB_URI' ) && define( 'WPCSB_URI', plugin_dir_url( __FILE__ ) );
@@ -29,6 +29,7 @@ defined( 'ABSPATH' ) || exit;
 ! defined( 'WPCSB_DISCUSSION' ) && define( 'WPCSB_DISCUSSION', 'https://wordpress.org/support/plugin/wpc-sticky-add-to-cart' );
 ! defined( 'WPC_URI' ) && define( 'WPC_URI', WPCSB_URI );
 
+include 'includes/log/wpc-log.php';
 include 'includes/dashboard/wpc-dashboard.php';
 include 'includes/kit/wpc-kit.php';
 include 'includes/hpos.php';
@@ -66,6 +67,7 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
 
                     // settings
                     add_action( 'admin_init', [ $this, 'register_settings' ] );
+                    add_filter( 'pre_update_option', [ $this, 'last_saved' ], 10, 2 );
                     add_action( 'admin_menu', [ $this, 'admin_menu' ] );
 
                     // scripts
@@ -123,6 +125,15 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
 
                     // localization
                     register_setting( 'wpcsb_localization', 'wpcsb_localization' );
+                }
+
+                function last_saved( $value, $option ) {
+                    if ( $option == 'wpcsb_settings' ) {
+                        $value['_last_saved']    = current_time( 'timestamp' );
+                        $value['_last_saved_by'] = get_current_user_id();
+                    }
+
+                    return $value;
                 }
 
                 function admin_menu() {
@@ -334,7 +345,20 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
                                         </tr>
                                         <tr class="submit">
                                             <th colspan="2">
-                                                <?php settings_fields( 'wpcsb_settings' ); ?><?php submit_button(); ?>
+                                                <div class="wpclever_submit">
+                                                    <?php
+                                                    settings_fields( 'wpcsb_settings' );
+                                                    submit_button( '', 'primary', 'submit', false );
+
+                                                    if ( function_exists( 'wpc_last_saved' ) ) {
+                                                        wpc_last_saved( self::get_settings() );
+                                                    }
+                                                    ?>
+                                                </div>
+                                                <a style="display: none;" class="wpclever_export"
+                                                   data-key="wpcsb_settings"
+                                                   data-name="settings"
+                                                   href="#"><?php esc_html_e( 'import / export', 'wpc-sticky-add-to-cart' ); ?></a>
                                             </th>
                                         </tr>
                                     </table>
