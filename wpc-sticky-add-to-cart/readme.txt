@@ -3,8 +3,8 @@ Contributors: wpclever
 Donate link: https://wpclever.net
 Tags: woocommerce, wpc, sticky, add-to-cart
 Tested up to: 6.9
-Version: 2.1.4
-Stable tag: 2.1.4
+Version: 2.1.5
+Stable tag: 2.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,10 +17,6 @@ One among the most common elements that can bring about a nicer, customer-friend
 **WPC Sticky Add to Cart** displays a button that is always on standby on the screen so that customers can easily add products to the cart while scrolling around the page. Especially, when browsing through a long list of products, customers don’t have to scroll back to the top to find the Add to Cart button but instead, it’s always within easy reach.
 
 Though it’s a type of Call to Action, the sticky add to cart button won’t interfere with customers while navigating around as users can choose where to put it on their site. Buyers can preview the item as there will be a thumbnail, price, quantity input, and press the Add to Cart button whenever they want.
-
-= Live demo =
-
-Visit our [live demo](https://demo.wpclever.net/wpcsb/ "live demo") here to see how this plugin works.
 
 = Features =
 
@@ -51,6 +47,9 @@ Visit our [live demo](https://demo.wpclever.net/wpcsb/ "live demo") here to see 
 4. Go to settings page to configure
 
 == Changelog ==
+
+= 2.1.5 =
+* Updated: Optimized the code
 
 = 2.1.4 =
 * Fixed: Minor CSS/JS issues in the backend
