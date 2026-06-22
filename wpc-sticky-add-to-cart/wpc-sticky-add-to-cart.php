@@ -3,23 +3,23 @@
 Plugin Name: WPC Sticky Add To Cart for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Sticky Add To Cart brings about a nicer, customer-friendly sticky add-to-cart bar for your site.
-Version: 2.1.5
+Version: 2.1.6
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-sticky-add-to-cart
 Domain Path: /languages/
 Requires Plugins: woocommerce
-Requires at least: 4.0
-Tested up to: 6.9
+Requires at least: 5.9
+Tested up to: 7.0
 WC requires at least: 3.0
-WC tested up to: 10.7
+WC tested up to: 10.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WPCSB_VERSION' ) && define( 'WPCSB_VERSION', '2.1.5' );
+! defined( 'WPCSB_VERSION' ) && define( 'WPCSB_VERSION', '2.1.6' );
 ! defined( 'WPCSB_LITE' ) && define( 'WPCSB_LITE', __FILE__ );
 ! defined( 'WPCSB_FILE' ) && define( 'WPCSB_FILE', __FILE__ );
 ! defined( 'WPCSB_URI' ) && define( 'WPCSB_URI', plugin_dir_url( __FILE__ ) );
@@ -65,7 +65,6 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
                     self::$localization = (array) get_option( 'wpcsb_localization', [] );
 
                     // init
-                    add_action( 'init', [ $this, 'init' ] );
 
                     // settings
                     add_action( 'admin_init', [ $this, 'register_settings' ] );
@@ -89,12 +88,6 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
                     // WPC Smart Messages
                     add_filter( 'wpcsm_locations', [ $this, 'wpcsm_locations' ] );
                 }
-
-                public function init() {
-                    // load text-domain
-                    load_plugin_textdomain( 'wpc-sticky-add-to-cart', false, basename( WPCSB_DIR ) . '/languages/' );
-                }
-
                 public static function get_settings() {
                     return apply_filters( 'wpcsb_get_settings', self::$settings );
                 }
