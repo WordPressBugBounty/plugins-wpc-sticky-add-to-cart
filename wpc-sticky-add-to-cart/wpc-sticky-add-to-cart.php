@@ -3,7 +3,7 @@
 Plugin Name: WPC Sticky Add To Cart for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Sticky Add To Cart brings about a nicer, customer-friendly sticky add-to-cart bar for your site.
-Version: 2.1.6
+Version: 2.1.7
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-sticky-add-to-cart
@@ -12,14 +12,14 @@ Requires Plugins: woocommerce
 Requires at least: 5.9
 Tested up to: 7.0
 WC requires at least: 3.0
-WC tested up to: 10.8
+WC tested up to: 10.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WPCSB_VERSION' ) && define( 'WPCSB_VERSION', '2.1.6' );
+! defined( 'WPCSB_VERSION' ) && define( 'WPCSB_VERSION', '2.1.7' );
 ! defined( 'WPCSB_LITE' ) && define( 'WPCSB_LITE', __FILE__ );
 ! defined( 'WPCSB_FILE' ) && define( 'WPCSB_FILE', __FILE__ );
 ! defined( 'WPCSB_URI' ) && define( 'WPCSB_URI', plugin_dir_url( __FILE__ ) );
@@ -159,7 +159,7 @@ if ( ! function_exists( 'wpcsb_init' ) ) {
                 function admin_menu_content() {
                     add_thickbox();
                     // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-                    $active_tab = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'settings';
+                    $active_tab = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ?? '' ) ) : 'settings';
                     ?>
                     <div class="wpclever_settings_page wrap">
                         <div class="wpclever_settings_page_header">
