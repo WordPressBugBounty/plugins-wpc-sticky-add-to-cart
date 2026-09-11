@@ -2,9 +2,8 @@
 Contributors: wpclever
 Donate link: https://wpclever.net
 Tags: woocommerce, wpc, sticky, add-to-cart
-Tested up to: 7.0
-Version: 2.1.7
-Stable tag: 2.1.7
+Tested up to: 7.1
+Stable tag: 2.1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +46,9 @@ Though it’s a type of Call to Action, the sticky add to cart button won’t in
 4. Go to settings page to configure
 
 == Changelog ==
+
+= 2.1.8 =
+* Updated: Compatible with WP 7.1 & Woo 11.1
 
 = 2.1.7 =
 * Fixed: Minor CSS/JS issues in the backend
